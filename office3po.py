@@ -17,5 +17,6 @@ while True:
         print("Last valid input: " + str(datetime.datetime.now()))
         print("Temperature: %d C" % result.temperature)
         print("Humidity: %d %%" % result.humidity)
+	print(instance.__class__.__name__)
 
     time.sleep(1)

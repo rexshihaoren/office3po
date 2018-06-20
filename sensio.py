@@ -10,8 +10,8 @@ class sensio:
     def __init__(self, sensors=None):
         self.sensors = sensors
         # currently use json as storage so we need this
-        if os.path.exists('./dh11.json'):
-            with open('./dh11.json', mode='w', encoding='utf-8') as f:
+        if not os.path.exists('./dh11.json'):
+            with open('./dh11.json', mode='w+') as f:
                 json.dump([], f)
 
     def run(self):
@@ -20,7 +20,7 @@ class sensio:
             for s in self.sensors:
                 if isinstance(s, dht11.DHT11):
                     res = s.read()
-                    with open('./dh11.json', mode='w', encoding='utf-8') as f:
+                    with open('./dh11.json', mode='w+') as f:
                         feeds = json.load(f)
                         entry = {'ts': dt,
                                  'temperature': res.temperature,
