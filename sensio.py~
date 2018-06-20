@@ -1,0 +1,20 @@
+from datetime import datetime
+from dht11 import dht11
+import os
+import json
+
+class sensio:
+    def __init__(self, sensors=None):
+        self.sensors = sensors
+        # currently use json as storage so we need this
+        if os.path.exists('./dh11.json'):
+            with open(DATA_FILENAME, mode='w', encoding='utf-8') as f:
+                json.dump([], f)
+    def run(self):
+        while True:
+            dt = datetime.now()
+            for s in self.sensors:
+                if isinstance(s, dht11.DHT11):
+                    
+                    
+        
