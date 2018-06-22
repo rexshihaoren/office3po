@@ -10,23 +10,27 @@ class sensio:
     def __init__(self, sensors=None):
         self.sensors = sensors
         # currently use json as storage so we need this
-        if not os.path.exists('./dh11.json'):
-            with open('./dh11.json', mode='w+') as f:
+        if not os.path.exists('./dht11.json'):
+            with open('./dht11.json', mode='w+') as f:
                 json.dump([], f)
+		f.close()
 
     def run(self):
         while True:
-            dt = datetime.now()
+            dt = datetime.now().__str__()
             for s in self.sensors:
                 if isinstance(s, dht11.DHT11):
                     res = s.read()
-                    with open('./dh11.json', mode='w+') as f:
+                    with open('./dht11.json', mode='r+') as f:
                         feeds = json.load(f)
                         entry = {'ts': dt,
                                  'temperature': res.temperature,
                                  'humidity': res.humidity}
                         feeds.append(entry)
+			print(feeds)
+		    with open('./dht11.json', mode='w') as f:
                         json.dump(feeds, f)
+			f.close()
             time.sleep(5)
 
 
